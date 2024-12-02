@@ -997,5 +997,61 @@ const input = `87501   76559
 58557   95632
 98671   95757
 48004   65149
-20103   21592`
+20103   21592`;
 
+const newArr = input.split(" ")
+
+const nums = newArr.map((num) => {
+  if(num){
+  return num.split("\n")
+  
+  }
+  return;
+})
+
+const newNums = nums.filter(element => element != undefined).flat()
+let right = [];
+  let left = [];
+
+for(let i = 0; i < newNums.length; i++){
+  
+  if (i % 2 == 0){
+    left.push(newNums[i])
+  } else{
+    right.push(newNums[i])
+  }
+
+}
+ 
+right.sort((a, b) => a - b)
+left.sort((a, b) => a - b)
+
+let sum = 0;
+
+for(let i = 0; i < right.length; i++){
+  let rightNum = right[i];
+  let leftNum = left[i];
+  if(rightNum > leftNum) {
+    sum += rightNum - leftNum
+  } else {
+    sum += leftNum - rightNum
+  }
+}
+
+let similar = 0;
+let multiplier = 0;
+
+for(let i = 0; i < left.length; i++) {
+  let leftNum = left[i]
+  
+  for(let i = 0; i < right.length; i++) {
+    let rightNum = right[i]
+    if (leftNum === rightNum){
+      multiplier++;
+    }
+  }
+  similar += multiplier * leftNum;
+  multiplier = 0;
+}
+
+console.log(similar)
